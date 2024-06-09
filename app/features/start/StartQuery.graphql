@@ -1,5 +1,41 @@
-query Start {
-  me {
-    name
+query Start($country: CountryCode, $language: LanguageCode)
+@inContext(country: $country, language: $language) {
+  collections(first: 1, sortKey: UPDATED_AT, reverse: true) {
+    nodes {
+      id
+      title
+      handle
+      image {
+        id
+        url
+        altText
+        width
+        height
+      }
+    }
+  }
+  # In Hydrogen, this query is deferred. Quilt doesn’t support streaming rendering like this...
+  # but should it?
+  products(first: 4, sortKey: UPDATED_AT, reverse: true) {
+    nodes {
+      id
+      title
+      handle
+      priceRange {
+        minVariantPrice {
+          amount
+          currencyCode
+        }
+      }
+      images(first: 1) {
+        nodes {
+          id
+          url
+          altText
+          width
+          height
+        }
+      }
+    }
   }
 }

@@ -12,6 +12,7 @@
   "dependencies": {},
   "devDependencies": {
     "@quilted/quilt": "^0.7.0",
+    "@lemonmade/shopify": "^0.5.5",
     "graphql": "^16.8.0",
     "jsdom": "^24.0.0",
     "preact": "^10.21.0",

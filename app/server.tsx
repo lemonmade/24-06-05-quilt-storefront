@@ -1,42 +1,59 @@
 import '@quilted/quilt/globals';
 
-import {RequestRouter, JSONResponse} from '@quilted/quilt/request-router';
+import {RequestRouter, RedirectResponse} from '@quilted/quilt/request-router';
 import {BrowserAssets} from 'quilt:module/assets';
 
 const router = new RequestRouter();
 const assets = new BrowserAssets();
 
-// GraphQL API, called from the client
-router.post('/api/graphql', async (request) => {
-  const [{query, operationName, variables}, {performGraphQLOperation}] =
-    await Promise.all([request.json(), import('./server/graphql.ts')]);
+router.get(/\/discount\/\w+/, async (request) => {
+  const searchParams = new URLSearchParams(request.URL.search);
+  const redirectURL = new URL(
+    searchParams.get('redirect') ?? searchParams.get('return_to') ?? '/',
+    request.url,
+  );
 
-  const result = await performGraphQLOperation(query, {
-    variables,
-    operationName,
+  // Only allow same-origin redirects
+  if (redirectURL.origin !== request.URL.origin) {
+    return new Response(null, {
+      status: 400,
+    });
+  }
+
+  searchParams.delete('redirect');
+  searchParams.delete('return_to');
+  redirectURL.search = searchParams.toString();
+
+  // TODO: update cart
+
+  return new RedirectResponse(redirectURL, {
+    status: 303,
   });
-
-  return new JSONResponse(result);
 });
 
 // For all GET requests, render our React application.
 router.get(async (request) => {
   const [
     {App},
-    {performGraphQLOperation},
+    {createStorefrontGraphQLFetch},
     {renderToResponse},
     {AsyncActionCache},
   ] = await Promise.all([
     import('./App.tsx'),
-    import('./server/graphql.ts'),
+    import('@lemonmade/shopify/storefront'),
     import('@quilted/quilt/server'),
     import('@quilted/quilt/async'),
   ]);
 
+  const fetchGraphQL = createStorefrontGraphQLFetch({
+    shop: 'admin4.myshopify.com',
+    accessToken: 'c6f362765d5020a5c0b71303a6b06129',
+  });
+
   const response = await renderToResponse(
     <App
       context={{
-        fetchGraphQL: performGraphQLOperation,
+        fetchGraphQL,
         asyncCache: new AsyncActionCache(),
       }}
     />,

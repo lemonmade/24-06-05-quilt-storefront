@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "build/typescript",
     "jsxImportSource": "preact",
+    "lib": ["esnext", "dom"],
     "paths": {
       "~/shared/*": ["./shared/*"],
       "~/tests/*": ["./tests/*"],

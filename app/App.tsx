@@ -4,6 +4,7 @@ import {AsyncContext} from '@quilted/quilt/async';
 import {GraphQLContext} from '@quilted/quilt/graphql';
 import {Routing, useRoutes} from '@quilted/quilt/navigate';
 import {Localization, useLocaleFromEnvironment} from '@quilted/quilt/localize';
+import {NotFound} from '@quilted/quilt/server';
 
 import {HTML} from './foundation/html.ts';
 import {Frame} from './foundation/frame.ts';
@@ -40,12 +41,14 @@ export default App;
 function Routes() {
   return useRoutes([
     {match: '/', render: <Start />, renderPreload: <Start.Preload />},
+    {render: <NotFound />},
   ]);
 }
 
 // This component renders any app-wide context.
 function AppContext({children, context}: RenderableProps<AppProps>) {
   const locale = useLocaleFromEnvironment() ?? 'en';
+  console.log({locale});
 
   return (
     <AppContextReact.Provider value={context}>
