@@ -1,10 +1,9 @@
-import type {RenderableProps} from 'preact';
-
 import {useGraphQLQuery} from '@quilted/quilt/graphql';
 import {Link} from '@quilted/quilt/navigate';
 import {useLocale} from '@quilted/quilt/localize';
 
 import {useFormatMoney} from '~/shared/shopify.ts';
+import {Heading, Stack} from '~/shared/design-system.ts';
 
 import styles from './Start.module.css';
 import startQuery from './StartQuery.graphql';
@@ -28,15 +27,13 @@ export default function Start() {
 
   const {products} = data;
 
-  console.log(data);
-
   return (
     <Stack spacing>
       <Heading>Recommended products</Heading>
 
       <div class={styles.ProductGrid}>
         {products.nodes.map((product) => {
-          const featuredImage = product.images.nodes[0];
+          const {title, featuredImage, priceRange} = product;
 
           return (
             <Link class={styles.Product} to={`/products/${product.handle}`}>
@@ -48,50 +45,13 @@ export default function Start() {
                 />
               ) : null}
               <Stack spacing="small-200">
-                <div class={styles.ProductTitle}>{product.title}</div>
-                <small>{formatMoney(product.priceRange.minVariantPrice)}</small>
+                <div class={styles.ProductTitle}>{title}</div>
+                <small>{formatMoney(priceRange.minVariantPrice)}</small>
               </Stack>
             </Link>
           );
         })}
       </div>
     </Stack>
-  );
-}
-
-function Heading({children}: RenderableProps<{}>) {
-  return <h2 class={styles.Heading}>{children}</h2>;
-}
-
-type SpacingValue =
-  | boolean
-  | 'none'
-  | 'small-200'
-  | 'small-100'
-  | 'small'
-  | 'auto';
-
-const SPACING_VALUE_CLASS_MAP = new Map<SpacingValue, string | undefined>([
-  [true, styles['spacing-auto']],
-  ['small-200', styles['spacing-small-200']],
-  ['small-100', styles['spacing-small-100']],
-  ['small', styles['spacing-small-100']],
-  ['auto', styles['spacing-auto']],
-]);
-
-function Stack({
-  spacing = false,
-  children,
-}: RenderableProps<{
-  spacing?: SpacingValue;
-}>) {
-  return (
-    <div
-      class={[styles.Stack, SPACING_VALUE_CLASS_MAP.get(spacing)]
-        .filter(Boolean)
-        .join(' ')}
-    >
-      {children}
-    </div>
   );
 }

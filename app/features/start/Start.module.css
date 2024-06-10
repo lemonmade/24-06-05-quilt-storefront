@@ -22,39 +22,3 @@
 .ProductTitle {
   font-weight: var(--x-text-weight-strong);
 }
-
-/** Design system */
-
-:root {
-  --x-spacing-none: 0;
-  --x-spacing-small-200: 0.25rem;
-  --x-spacing-small-100: 0.5rem;
-  --x-spacing-auto: 1rem;
-
-  --x-text-color-auto: black;
-
-  --x-text-weight-auto: 400;
-  --x-text-weight-strong: 600;
-}
-
-.Heading {
-  margin: 0;
-}
-
-.Stack {
-  display: flex;
-  flex-direction: column;
-  gap: var(--x-spacing-none);
-}
-
-.spacing-small-200 {
-  gap: var(--x-spacing-small-200);
-}
-
-.spacing-small-100 {
-  gap: var(--x-spacing-small-100);
-}
-
-.spacing-auto {
-  gap: var(--x-spacing-auto);
-}

@@ -1,0 +1,17 @@
+.Stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--x-spacing-none);
+}
+
+.spacing-small-200 {
+  gap: var(--x-spacing-small-200);
+}
+
+.spacing-small-100 {
+  gap: var(--x-spacing-small-100);
+}
+
+.spacing-auto {
+  gap: var(--x-spacing-auto);
+}

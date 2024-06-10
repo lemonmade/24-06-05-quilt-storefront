@@ -27,14 +27,12 @@ query Start($country: CountryCode, $language: LanguageCode)
           currencyCode
         }
       }
-      images(first: 1) {
-        nodes {
-          id
-          url
-          altText
-          width
-          height
-        }
+      featuredImage {
+        id
+        url
+        altText
+        width
+        height
       }
     }
   }

@@ -1,0 +1,11 @@
+:root {
+  --x-spacing-none: 0;
+  --x-spacing-small-200: 0.25rem;
+  --x-spacing-small-100: 0.5rem;
+  --x-spacing-auto: 1rem;
+
+  --x-text-color-auto: black;
+
+  --x-text-weight-auto: 400;
+  --x-text-weight-strong: 600;
+}
