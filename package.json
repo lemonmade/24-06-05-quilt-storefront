@@ -13,16 +13,16 @@
     "typescript:watch": "tsx watch --conditions quilt:source"
   },
   "devDependencies": {
+    "@quilted/graphql-tools": "^0.2.0",
     "@quilted/rollup": "^0.2.0",
-    "@quilted/vite": "^0.1.0",
     "@quilted/typescript": "^0.3.0",
+    "@quilted/vite": "^0.1.0",
     "rollup": "^4.14.0",
     "prettier": "^3.0.0",
     "tsx": "^4.9.0",
     "typescript": "^5.4.0",
     "vite": "^5.2.0",
-    "vitest": "^1.6.0",
-    "@quilted/graphql-tools": "^0.2.0"
+    "vitest": "^1.6.0"
   },
   "prettier": {
     "arrowParens": "always",

@@ -42,8 +42,11 @@ importers:
   app:
     devDependencies:
       '@lemonmade/shopify':
-        specifier: ^0.5.5
-        version: 0.5.5
+        specifier: ^0.5.6
+        version: 0.5.6
+      '@lemonmade/shopify-quilt':
+        specifier: ^0.1.1
+        version: 0.1.1(@quilted/quilt@0.7.5(@preact/signals-core@1.6.0)(@quilted/react@18.2.11)(graphql@16.8.1)(preact@10.22.0)(prettier@3.3.1)(vitest@1.6.0(jsdom@24.1.0)(lightningcss@1.25.1)))(preact@10.22.0)
       '@quilted/quilt':
         specifier: ^0.7.0
         version: 0.7.5(@preact/signals-core@1.6.0)(@quilted/react@18.2.11)(graphql@16.8.1)(preact@10.22.0)(prettier@3.3.1)(vitest@1.6.0(jsdom@24.1.0)(lightningcss@1.25.1))
@@ -1069,8 +1072,20 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@lemonmade/shopify@0.5.5':
-    resolution: {integrity: sha512-C8eTQpqT6EUl6v/gchs5Sp3voLtJLRe6mq7IHMhH26gSx6fNJ5Ao17D6l0TsjwT9+jwKlGcuaxnaTw9iqqwurQ==}
+  '@lemonmade/shopify-quilt@0.1.1':
+    resolution: {integrity: sha512-rJ8zJLdrN2ArNTX2mqBwggIxbA8AyOc0aE2CfIQtB7hnjBdGg8Upqe0KrlXfNF5O7MmtQrELvCZMkyQSVPNZEQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      '@quilted/quilt': ^0.7.0
+      preact: ^10.22.0
+    peerDependenciesMeta:
+      '@quilted/quilt':
+        optional: true
+      preact:
+        optional: true
+
+  '@lemonmade/shopify@0.5.6':
+    resolution: {integrity: sha512-GlQ8mIwgbMmHrcrP8VzICJhfiQtxnSKqYgf0YyKlGRuL4njXZBno6IgKYANrt44c4kqknOuL2Rks0Aw276sNfg==}
     engines: {node: '>=14.0.0'}
 
   '@mdn/browser-compat-data@5.5.31':
@@ -1124,6 +1139,9 @@ packages:
   '@quilted/async@0.4.14':
     resolution: {integrity: sha512-cEnL1vA890ORDmlF1Wob727hfz8TqE7nTL1evEHN70w1L486XTOBvbIgu9aMeRI2ZT/NAxUFrqt6YpXqRwzJBQ==}
 
+  '@quilted/async@0.4.15':
+    resolution: {integrity: sha512-TCxmcDJXvd/HP8w0c4FvyJlrnHW2ZoSZ17nOHzvfpjXS3+urEuawpusCrg1Z8G9GFzEtxoGlF0SlaQjhETwloA==}
+
   '@quilted/babel@0.2.2':
     resolution: {integrity: sha512-lSQnlro13dhU7gZtgk0810CSRBxsbhB2ryh8mPnfVlo6NEJaX6EFmcA7/nwEHQDuICR1FVMRLOsBfi5IkS8I8A==}
     peerDependencies:
@@ -1153,6 +1171,9 @@ packages:
 
   '@quilted/graphql@3.1.3':
     resolution: {integrity: sha512-UCCqrXWGzxfjuIO+zfghmZZl/ngByDvY8ncaxgrL+EwzogF4XCG7SWrFbKIYgsdnv4SY6+VHQLrXaK+MGFvWVA==}
+
+  '@quilted/graphql@3.3.0':
+    resolution: {integrity: sha512-O73EvK83H+/ox7AgWPyzsJLnkfq07VmDNbFh7DQJGXSJVhEwQyXs7vgY4x3W8nzbdYuSub1nfvvXQQ5SrUeGuA==}
 
   '@quilted/http@0.3.0':
     resolution: {integrity: sha512-60CNw2V/WJjEsShHaSSGEfNsa3yAGfZYsUACgdPpR0Pypd9PUF1doUhTvTyY09A0nJ/9WxEHWoDV6p2YFGtu2w==}
@@ -3946,9 +3967,14 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  '@lemonmade/shopify@0.5.5':
+  '@lemonmade/shopify-quilt@0.1.1(@quilted/quilt@0.7.5(@preact/signals-core@1.6.0)(@quilted/react@18.2.11)(graphql@16.8.1)(preact@10.22.0)(prettier@3.3.1)(vitest@1.6.0(jsdom@24.1.0)(lightningcss@1.25.1)))(preact@10.22.0)':
+    optionalDependencies:
+      '@quilted/quilt': 0.7.5(@preact/signals-core@1.6.0)(@quilted/react@18.2.11)(graphql@16.8.1)(preact@10.22.0)(prettier@3.3.1)(vitest@1.6.0(jsdom@24.1.0)(lightningcss@1.25.1))
+      preact: 10.22.0
+
+  '@lemonmade/shopify@0.5.6':
     dependencies:
-      '@quilted/graphql': 3.1.3
+      '@quilted/graphql': 3.3.0
 
   '@mdn/browser-compat-data@5.5.31': {}
 
@@ -4003,6 +4029,13 @@ snapshots:
       '@quilted/signals': 0.2.2
       '@types/web': 0.0.59
 
+  '@quilted/async@0.4.15':
+    dependencies:
+      '@quilted/assets': 0.1.2
+      '@quilted/events': 2.0.0
+      '@quilted/signals': 0.2.2
+      '@types/web': 0.0.59
+
   '@quilted/babel@0.2.2(@babel/core@7.24.7)(@babel/template@7.24.7)(@babel/traverse@7.24.7)(@babel/types@7.24.7)':
     dependencies:
       '@babel/template': 7.24.7
@@ -4044,6 +4077,13 @@ snapshots:
   '@quilted/graphql@3.1.3':
     dependencies:
       '@quilted/async': 0.4.14
+      '@types/chance': 1.1.6
+      chance: 1.1.11
+      graphql: 16.8.1
+
+  '@quilted/graphql@3.3.0':
+    dependencies:
+      '@quilted/async': 0.4.15
       '@types/chance': 1.1.6
       chance: 1.1.11
       graphql: 16.8.1

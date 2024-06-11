@@ -9,7 +9,8 @@ import {NotFound} from '@quilted/quilt/server';
 import {HTML} from './foundation/html.ts';
 import {Frame} from './foundation/frame.ts';
 
-import {Start} from './features/start.ts';
+import {Home} from './features/home.ts';
+import {ProductDetails} from './features/products.ts';
 
 import {
   AppContextReact,
@@ -40,7 +41,19 @@ export default App;
 // of routes, you may want to split this component into its own file.
 function Routes() {
   return useRoutes([
-    {match: '/', render: <Start />, renderPreload: <Start.Preload />},
+    {match: '/', render: <Home />, renderPreload: <Home.Preload />},
+    {
+      match: 'products',
+      children: [
+        {
+          match: /[^/]+/,
+          render: ({matched}) => (
+            <ProductDetails key={matched} handle={matched} />
+          ),
+          renderPreload: <ProductDetails.Preload />,
+        },
+      ],
+    },
     {render: <NotFound />},
   ]);
 }
@@ -48,7 +61,6 @@ function Routes() {
 // This component renders any app-wide context.
 function AppContext({children, context}: RenderableProps<AppProps>) {
   const locale = useLocaleFromEnvironment() ?? 'en';
-  console.log({locale});
 
   return (
     <AppContextReact.Provider value={context}>

@@ -1,4 +1,4 @@
-query Start($country: CountryCode, $language: LanguageCode)
+query Home($country: CountryCode, $language: LanguageCode)
 @inContext(country: $country, language: $language) {
   collections(first: 1, sortKey: UPDATED_AT, reverse: true) {
     nodes {
