@@ -5,7 +5,7 @@ if (process.env.NODE_ENV === 'development') {
 import '@quilted/quilt/globals';
 
 import {hydrate} from 'preact';
-import {AsyncActionCache} from '@quilted/quilt/async';
+import {GraphQLCache} from '@quilted/quilt/graphql';
 import {Browser, BrowserContext} from '@quilted/quilt/browser';
 import {createStorefrontGraphQLFetch} from '@lemonmade/shopify/storefront';
 
@@ -16,21 +16,23 @@ import {App} from './App.tsx';
 const element = document.querySelector('#app')!;
 const browser = new Browser();
 
-const fetchGraphQL = createStorefrontGraphQLFetch({
+const graphQLFetch = createStorefrontGraphQLFetch({
   shop: 'admin4.myshopify.com',
   accessToken: 'c6f362765d5020a5c0b71303a6b06129',
 });
 
-const asyncCache = new AsyncActionCache();
+const graphQLCache = new GraphQLCache({fetch: graphQLFetch});
 
-const context = {
-  fetchGraphQL,
-  asyncCache,
-} satisfies AppContext;
-
-fetchGraphQL(`query { shop { name } }`).then((result) => {
+graphQLCache.query(`query { shop { name } }`).then((result) => {
   console.log(result);
 });
+
+const context = {
+  graphql: {
+    fetch: graphQLFetch,
+    cache: graphQLCache,
+  },
+} satisfies AppContext;
 
 // Makes key parts of the app available in the browser console
 Object.assign(globalThis, {app: context});

@@ -7,11 +7,10 @@ import {useFormatMoney} from '@lemonmade/shopify-quilt';
 import {Heading, Stack} from '~/shared/design-system.ts';
 
 import styles from './Home.module.css';
-import homeQuery from './HomeQuery.graphql';
+import homeQuery, {type HomeQueryData} from './HomeQuery.graphql';
 
 export function Home() {
   const locale = useLocale();
-  const formatMoney = useFormatMoney();
 
   const query = useGraphQLQuery(homeQuery, {
     // Why do I have to provide language as a GraphQL enum?? I obviously have a locale,
@@ -36,27 +35,33 @@ export function Home() {
 
         <div class={styles.ProductGrid}>
           {products.nodes.map((product) => {
-            const {title, featuredImage, priceRange} = product;
-
-            return (
-              <Link class={styles.Product} to={`/products/${product.handle}`}>
-                {featuredImage ? (
-                  <img
-                    class={styles.ProductImage}
-                    src={featuredImage.url}
-                    alt={featuredImage.altText ?? ''}
-                  />
-                ) : null}
-                <Stack spacing="small-200">
-                  <div class={styles.ProductTitle}>{title}</div>
-                  <small>{formatMoney(priceRange.minVariantPrice)}</small>
-                </Stack>
-              </Link>
-            );
+            return <ProductCard product={product} />;
           })}
         </div>
       </Stack>
     </>
+  );
+}
+
+function ProductCard({product}: {product: HomeQueryData.Products.Nodes}) {
+  const {title, featuredImage, priceRange} = product;
+
+  const formatMoney = useFormatMoney();
+
+  return (
+    <Link class={styles.Product} to={`/products/${product.handle}`}>
+      {featuredImage ? (
+        <img
+          class={styles.ProductImage}
+          src={featuredImage.url}
+          alt={featuredImage.altText ?? ''}
+        />
+      ) : null}
+      <Stack spacing="small-200">
+        <div class={styles.ProductTitle}>{title}</div>
+        <small>{formatMoney(priceRange.minVariantPrice)}</small>
+      </Stack>
+    </Link>
   );
 }
 

@@ -37,15 +37,15 @@ router.get(async (request) => {
     {App},
     {createStorefrontGraphQLFetch},
     {renderToResponse},
-    {AsyncActionCache},
+    {GraphQLCache},
   ] = await Promise.all([
     import('./App.tsx'),
     import('@lemonmade/shopify/storefront'),
     import('@quilted/quilt/server'),
-    import('@quilted/quilt/async'),
+    import('@quilted/quilt/graphql'),
   ]);
 
-  const fetchGraphQL = createStorefrontGraphQLFetch({
+  const graphQLFetch = createStorefrontGraphQLFetch({
     shop: 'admin4.myshopify.com',
     accessToken: 'c6f362765d5020a5c0b71303a6b06129',
   });
@@ -53,8 +53,10 @@ router.get(async (request) => {
   const response = await renderToResponse(
     <App
       context={{
-        fetchGraphQL,
-        asyncCache: new AsyncActionCache(),
+        graphql: {
+          fetch: graphQLFetch,
+          cache: new GraphQLCache({fetch: graphQLFetch}),
+        },
       }}
     />,
     {
