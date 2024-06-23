@@ -1,7 +1,8 @@
 import {useGraphQLQuery} from '@quilted/quilt/graphql';
 
+import {Title} from '~/shared/head.ts';
+
 import productDetailsQuery from './ProductDetailsQuery.graphql';
-import {Title} from '@quilted/quilt/browser';
 
 export function ProductDetails({handle}: {handle: string}) {
   const query = useGraphQLQuery(productDetailsQuery, {
