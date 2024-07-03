@@ -1,7 +1,8 @@
-import {type Configuration} from '@quilted/graphql-tools/configuration';
+import type {Configuration} from '@quilted/graphql-tools/configuration';
 
 const configuration: Configuration = {
-  schema: 'app/graphql/storefront.schema.graphql',
+  schema:
+    'node_modules/@lemonmade/shopify/graphql/2024-04/storefront.schema.graphql',
   documents: ['app/**/*.graphql'],
   extensions: {
     quilt: {
